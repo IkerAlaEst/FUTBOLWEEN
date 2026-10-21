@@ -2,12 +2,11 @@ Asunto: Estimados/as responsables de la gestión del Castillo de Xàtiva y del A
 
 Nos ponemos en contacto con ustedes para solicitar autorización para celebrar la final de un torneo de videojuegos de fútbol, EA SPORTS FC, en el Castillo de Xàtiva, durante la tarde del próximo **31 de octubre**.
 Las fases clasificatorias del torneo se llevarían a cabo previamente en las instalaciones de nuestro instituto, mientras que la final tendría lugar en el castillo. 
-El objetivo es organizar una actividad tecnológica y juvenil en un entorno emblemático de la ciudad.
 La actividad tendría unas dimensiones reducidas y unas necesidades técnicas limitadas. Las características previstas serían las siguientes:
 
 - **Espacio solicitado:** una zona delimitada del recinto con superficie suficiente para instalar los ordenadores, las pantallas, las consolas y el equipo de grabación y retransmisión. No solicitamos el cierre completo del castillo ni la restricción general del acceso a los visitantes, sino únicamente la delimitación temporal del área necesaria para desarrollar la actividad.
-- **Fecha y horario:** la tarde del 31 de octubre, incluyendo el tiempo necesario para el montaje, la celebración de la final y la posterior retirada de todo el material, dentro del horario que se autorice.
-- **Número de personas:** un máximo de seis personas presentes simultáneamente, incluyendo los participantes, el comentarista y el personal técnico.
+- **Fecha y horario:** la tarde del 31 de octubre, empezariamos a las 7 para organizar y montar todo el equipaje y decoración y la retransmision en directo de la partida empezaria a las 8.
+- **Número de personas:** alrededor de 6 personas presentes simultáneamente, incluyendo los participantes, el comentarista y el personal técnico.
 - **Equipamiento técnico:** ordenadores, consolas, pantallas, cámaras, micrófonos y los accesorios necesarios para realizar la retransmisión. Todo el material sería temporal y desmontable.
 - **Retransmisión en directo:** la final se emitiría a través de la página web pública creada específicamente para el evento. No habría público presencial.
 - **Decoración de Halloween:** se instalarían algunos elementos decorativos de temática de Halloween para ambientar la zona de la final. La decoración sería temporal, ligera y desmontable, sin utilizar fijaciones ni adhesivos sobre los muros o elementos históricos, ni obstaculizar los recorridos de visitantes o las salidas de emergencia. Su instalación quedaría sujeta a las condiciones que establezca la administración responsable.
