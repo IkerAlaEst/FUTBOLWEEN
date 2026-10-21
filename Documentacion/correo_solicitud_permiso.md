@@ -26,6 +26,6 @@ Instituto: IES Dr Lluis Simarro
 
 Persona responsable: César Oltra Part
 
-Correo electrónico: [Correo de la empresa, nos falta el nombre]
+Correo electrónico: [Correo CAAI]
 
 Teléfono: [Numero de la empresa]
