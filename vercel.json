@@ -1,0 +1,13 @@
+{
+  "framework": "vite",
+  "buildCommand": "npm --prefix Web_Frontend run build",
+  "outputDirectory": "Web_Frontend/dist",
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+

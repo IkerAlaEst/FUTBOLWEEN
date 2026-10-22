@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>Argentina vs Spain — Striker 3D</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23f5f5f0'/%3E%3Ccircle cx='8' cy='8' r='2.5' fill='%23222'/%3E%3C/svg%3E" />
+  <!--
+    Import map: pinned Three.js r160 from unpkg. Modules import bare specifier 'three'.
+    NOTE: the game must be served over http(s) (ES modules + Gamepad API require a
+    secure-ish origin). `npx serve .` or `python3 -m http.server` both work.
+  -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  <style>
+    /* ---- minimal reset ---- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: #0b0e12;
+      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #e8eaed;
+      -webkit-user-select: none; user-select: none;
+    }
+
+    /* ---- canvas container (renderer appends <canvas> here) ---- */
+    #app {
+      position: fixed; inset: 0;
+    }
+    #app canvas { display: block; }
+
+    /* ---- HUD root: HUD.js builds all overlay DOM inside here ---- */
+    #hud {
+      position: fixed; inset: 0;
+      pointer-events: none;            /* HUD is display-only; menus re-enable per-element */
+      z-index: 10;
+      font-family: "Consolas", "SF Mono", "Roboto Mono", monospace;
+    }
+    /* base styles for HUD building blocks (HUD.js may add/override inline) */
+    #hud .hud-panel {
+      background: rgba(10, 14, 20, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      backdrop-filter: blur(2px);
+    }
+    #hud .hud-btn {
+      pointer-events: auto;
+      cursor: pointer;
+      background: #1c2530;
+      color: #e8eaed;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      padding: 8px 18px;
+      font: inherit;
+    }
+    #hud .hud-btn:hover { background: #2a3646; }
+
+    /* ---- HUD polish (used by src/ui/HUD.js) ---- */
+    /* scoreboard color chips + half indicator */
+    #hud .hud-chip {
+      width: 12px; height: 12px; border-radius: 3px; flex: none;
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+    #hud .hud-halfchip {
+      font-size: 11px; letter-spacing: 1px; opacity: 0.85;
+      background: rgba(255,255,255,0.1); border-radius: 4px; padding: 2px 6px;
+    }
+
+    /* floating shot/pass power meter (positioned by HUD.js) */
+    #hud .hud-power {
+      position: absolute; width: 10px; height: 72px;
+      background: rgba(8, 12, 16, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 5px; overflow: hidden;
+    }
+    #hud .hud-power-fill {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 0%;
+      background: #7bd88a; border-radius: 4px;
+    }
+
+    /* toast stack (below the scoreboard) */
+    #hud .hud-toasts {
+      position: absolute; top: 62px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+    }
+    #hud .hud-toast {
+      padding: 6px 18px; font-size: 15px; letter-spacing: 2px; white-space: nowrap;
+      background: rgba(10, 14, 20, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 6px;
+      animation: hudToastIn 0.25s ease-out;
+      transition: opacity 0.4s, transform 0.4s;
+    }
+    #hud .hud-toast-out { opacity: 0; transform: translateY(-8px); }
+    @keyframes hudToastIn {
+      from { opacity: 0; transform: translateY(-10px) scale(0.94); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* GOAL! center overlay */
+    #hud .hud-goal {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center; flex-direction: column;
+      background: radial-gradient(ellipse at center, rgba(8,10,14,0.1) 0%, rgba(8,10,14,0.45) 100%);
+    }
+    #hud .hud-goal-text {
+      font-size: 108px; font-weight: 700; letter-spacing: 16px; color: #ffd94d;
+      text-shadow: 0 0 32px rgba(255, 190, 60, 0.45), 0 6px 24px rgba(0, 0, 0, 0.85);
+    }
+    #hud .hud-goal-anim { animation: hudGoalPop 0.7s cubic-bezier(0.2, 1.6, 0.4, 1); }
+    #hud .hud-goal-sub {
+      font-size: 26px; letter-spacing: 8px; opacity: 0.92; margin-top: 6px;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.8);
+    }
+    @keyframes hudGoalPop {
+      0%   { opacity: 0; transform: scale(0.35); letter-spacing: 30px; }
+      60%  { opacity: 1; transform: scale(1.08); }
+      100% { opacity: 1; transform: scale(1); letter-spacing: 16px; }
+    }
+
+    /* full-screen modal overlay (pause menu) */
+    #hud .hud-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center; flex-direction: column;
+      background: rgba(8, 10, 14, 0.74);
+      pointer-events: auto;
+    }
+
+    /* gamepad mapping cheat sheet */
+    #hud .hud-sheet {
+      position: absolute; top: 54px; right: 12px; width: 330px;
+      padding: 10px 14px 12px;
+      background: rgba(10, 14, 20, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 8px;
+      pointer-events: auto; font-size: 12px;
+      animation: hudToastIn 0.25s ease-out;
+    }
+    #hud .hud-sheet-close { padding: 2px 9px; font-size: 12px; line-height: 1.4; }
+    #hud .hud-sheet-grid {
+      display: grid; grid-template-columns: 52px 1fr; gap: 5px 10px; align-items: center;
+    }
+    #hud .hud-padbtn {
+      text-align: center; font-size: 11px; padding: 2px 0;
+      background: #1c2530; border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 4px;
+    }
+
+    /* loading / fatal error splash (removed by main.js once booted) */
+    #boot-splash {
+      position: fixed; inset: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 12px;
+      background: #0b0e12;
+      color: #9aa4b2;
+      font-family: "Consolas", monospace;
+      letter-spacing: 0.15em;
+    }
+    #boot-splash .ball {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: #e8eaed;
+      animation: bootbounce 0.8s ease-in-out infinite alternate;
+    }
+    @keyframes bootbounce {
+      from { transform: translateY(-14px); }
+      to   { transform: translateY(10px) scaleY(0.85); }
+    }
+  </style>
+</head>
+<body>
+  <!-- WebGL canvas mounts here -->
+  <div id="app"></div>
+  <!-- All HUD DOM is built by src/ui/HUD.js inside this root -->
+  <div id="hud"></div>
+  <!-- Removed by main.js after successful boot -->
+  <div id="boot-splash"><div class="ball"></div><div>ARGENTINA vs SPAIN — LOADING</div></div>
+
+  <script type="module">
+    // Surface module/boot errors on the splash instead of a silent black screen.
+    window.addEventListener('error', (e) => {
+      const s = document.getElementById('boot-splash');
+      if (s) s.innerHTML = '<div style="max-width:70ch;text-align:center;line-height:1.5">' +
+        'FAILED TO LOAD<br><small style="color:#e06c75">' + (e.message || e.type) +
+        '</small><br><small>Serve over http(s): <code>npx serve .</code></small></div>';
+    }, { once: true });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'q' || e.key === 'Q' || e.key === 'Escape') {
+        try {
+          window.parent.postMessage({ type: 'EXIT_GAME' }, '*');
+        } catch (_) {}
+      }
+    });
+  </script>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

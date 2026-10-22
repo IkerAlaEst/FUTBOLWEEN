@@ -1,0 +1,11 @@
+{
+  "name": "clash-footballween-root",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npm --prefix Web_Frontend run dev",
+    "build": "npm --prefix Web_Frontend run build",
+    "preview": "npm --prefix Web_Frontend run preview"
+  }
+}
+

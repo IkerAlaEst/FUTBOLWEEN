@@ -1,0 +1,11 @@
+{
+  "name": "striker-3d",
+  "version": "0.1.0",
+  "description": "Browser-based 3D soccer game (Three.js, no build tools)",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "serve": "npx serve .",
+    "check": "for f in $(find src -name '*.js'); do node --check $f || exit 1; done && echo ALL-OK"
+  }
+}

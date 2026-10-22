@@ -1,0 +1,1334 @@
+/* ==========================================================================
+   CLASIFICACIÓN FOOTBALLWEEN 2026 - PANTALLA COMPLETA SIN SCROLL
+   Ajuste 100% Viewport, Escudos Vectoriales Visibles y Navbar Integrado
+   ========================================================================== */
+
+.classification-screen {
+  height: 100vh;
+  max-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 82px 14px 10px 14px;
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  user-select: none;
+  position: relative;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Modo Noche / Halloween */
+.classification-screen.dark-mode {
+  background: 
+    radial-gradient(ellipse at 50% -10%, rgba(255, 94, 0, 0.16) 0%, transparent 65%),
+    radial-gradient(circle at 10% 50%, rgba(124, 58, 237, 0.1) 0%, transparent 45%),
+    radial-gradient(circle at 90% 50%, rgba(255, 94, 0, 0.09) 0%, transparent 45%),
+    #07040b;
+  color: #f8fafc;
+}
+
+/* Modo Día / Claro */
+.classification-screen.light-mode {
+  background: 
+    radial-gradient(ellipse at 50% -10%, rgba(2, 132, 199, 0.15) 0%, transparent 65%),
+    radial-gradient(circle at 85% 40%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+    #f8fafc;
+  color: #0f172a;
+}
+
+/* ==========================================================================
+   2. TABLERO DE ÁRBOL PANORÁMICO AJUSTADO (100% Viewport, Zero Scroll)
+   ========================================================================== */
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+  animation: liveDotBlink 1.2s infinite ease-in-out;
+}
+
+@keyframes liveDotBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
+
+.clf-fit-board {
+  flex: 1 1 0;
+  min-height: 0;
+  width: 100%;
+  max-width: 1560px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0;
+  box-sizing: border-box;
+}
+
+/* Columnas de Rondas */
+.bracket-col {
+  display: flex;
+  flex-direction: column;
+  height: 94%;
+  flex: 1 1 0;
+  min-width: 120px;
+  max-width: 182px;
+  box-sizing: border-box;
+}
+
+.col-header-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+  flex-shrink: 0;
+  gap: 1px;
+}
+
+.col-title {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 0;
+  opacity: 0.85;
+  line-height: 1.1;
+}
+
+.col-venue-chip {
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 1px 6px;
+  border-radius: 999px;
+  line-height: 1.2;
+}
+
+.dark-mode .col-venue-chip {
+  background: rgba(255, 94, 0, 0.12);
+  color: #fdba74;
+  border: 1px solid rgba(255, 94, 0, 0.25);
+}
+
+.light-mode .col-venue-chip {
+  background: rgba(2, 132, 199, 0.08);
+  color: #0369a1;
+  border: 1px solid rgba(2, 132, 199, 0.2);
+}
+
+.col-cards-4 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+.col-cards-2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+.col-cards-1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+/* ==========================================================================
+   CONECTORES SVG DE ALTO IMPACTO (Estilo eSports Neon Circuit)
+   ========================================================================== */
+
+.bracket-connector {
+  width: 24px;
+  flex-shrink: 0;
+  height: 94%;
+  display: flex;
+  flex-direction: column;
+}
+
+.conn-header-spacer {
+  height: 20px; /* Alineación perfecta con .col-header-group */
+  flex-shrink: 0;
+}
+
+.conn-svg {
+  width: 100%;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: visible;
+}
+
+/* 1. Capa de resplandor neón difuso de fondo */
+.conn-line-glow {
+  fill: none;
+  stroke-width: 4px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.dark-mode .conn-line-glow {
+  stroke: #ff5e00;
+  filter: blur(2px) drop-shadow(0 0 6px rgba(255, 94, 0, 0.7));
+}
+
+.light-mode .conn-line-glow {
+  stroke: #38bdf8;
+  filter: blur(2px) drop-shadow(0 0 4px rgba(2, 132, 199, 0.4));
+}
+
+/* 2. Capa principal nítida (Circuito Neón) */
+.conn-line {
+  fill: none;
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  transition: stroke 0.25s ease;
+}
+
+.dark-mode .conn-line {
+  stroke: #ff7824;
+  filter: drop-shadow(0 0 4px rgba(255, 94, 0, 0.8));
+}
+
+.light-mode .conn-line {
+  stroke: #0284c7;
+  filter: drop-shadow(0 0 3px rgba(2, 132, 199, 0.5));
+}
+
+/* 3. Pulso de energía eléctrica animado hacia la final */
+.conn-pulse {
+  fill: none;
+  stroke-width: 2.2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
+.dark-mode .conn-pulse {
+  stroke: #fbbf24;
+  stroke-dasharray: 4 10;
+  animation: circuitFlow 2.8s linear infinite;
+  filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.95));
+}
+
+.light-mode .conn-pulse {
+  stroke: #0ea5e9;
+  stroke-dasharray: 4 10;
+  animation: circuitFlow 2.8s linear infinite;
+  filter: drop-shadow(0 0 5px rgba(14, 165, 233, 0.8));
+}
+
+@keyframes circuitFlow {
+  from {
+    stroke-dashoffset: 42;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* 4. Nodos de bifurcación circulares perfectos (Junction Nexus Dots) */
+.conn-node-dot {
+  fill: none;
+  stroke-width: 6px;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .conn-node-dot {
+  stroke: #fbbf24;
+  filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.9)) drop-shadow(0 0 2px #ff5e00);
+}
+
+.light-mode .conn-node-dot {
+  stroke: #0284c7;
+  filter: drop-shadow(0 0 4px rgba(2, 132, 199, 0.7));
+}
+
+/* ==========================================================================
+   3. TARJETA COMPACTA DE PARTIDO (b-match-card) - MÁS BORDEADO Y ESTILO
+   ========================================================================== */
+
+.b-match-card {
+  position: relative;
+  border-radius: 13px;
+  padding: 5px 8px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+/* Noche: Borde Neón Nítido y Relieve */
+.dark-mode .b-match-card {
+  background: linear-gradient(155deg, rgba(28, 17, 40, 0.96) 0%, rgba(12, 7, 18, 0.98) 100%);
+  border: 1.5px solid rgba(255, 115, 25, 0.48);
+  box-shadow: 
+    0 4px 18px rgba(0, 0, 0, 0.75),
+    0 0 12px rgba(255, 94, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 0 14px rgba(255, 94, 0, 0.05);
+}
+
+.dark-mode .b-match-card:hover {
+  transform: translateY(-2px) scale(1.025);
+  border-color: #ff8533;
+  box-shadow: 
+    0 8px 26px rgba(0, 0, 0, 0.8),
+    0 0 22px rgba(255, 94, 0, 0.45),
+    inset 0 0 18px rgba(255, 94, 0, 0.16);
+}
+
+/* Día con Borde Azul Definido y 3D */
+.light-mode .b-match-card {
+  background: #ffffff;
+  border: 2px solid #0284c7;
+  border-radius: 13px;
+  box-shadow: 
+    0 4px 14px rgba(2, 132, 199, 0.16),
+    0 2.5px 0 #0284c7;
+}
+
+.light-mode .b-match-card:hover {
+  transform: translateY(-2px) scale(1.025);
+  border-color: #0369a1;
+  box-shadow: 
+    0 8px 22px rgba(2, 132, 199, 0.35),
+    0 3px 0 #0369a1;
+}
+
+/* Partido EN VIVO (Borde Verde Pulsante de Alta Intensidad) */
+.b-match-card.is-live {
+  border: 2px solid #22c55e !important;
+  animation: liveBorderGlow 1.8s infinite ease-in-out;
+}
+
+@keyframes liveBorderGlow {
+  0%, 100% {
+    box-shadow: 0 0 14px rgba(34, 197, 94, 0.5), inset 0 0 8px rgba(34, 197, 94, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 26px rgba(34, 197, 94, 0.85), inset 0 0 14px rgba(34, 197, 94, 0.3);
+  }
+}
+
+/* Gran Final: Borde Dorado Mítico */
+.b-match-card.is-final {
+  border: 2px solid #fbbf24 !important;
+  border-radius: 15px;
+  box-shadow: 
+    0 6px 28px rgba(0, 0, 0, 0.85),
+    0 0 25px rgba(251, 191, 36, 0.5),
+    inset 0 0 16px rgba(251, 191, 36, 0.15) !important;
+}
+
+.b-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 8.5px;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.b-match-num {
+  display: inline-flex;
+  align-items: center;
+  padding: 1.5px 6px;
+  border-radius: 6px;
+  font-size: 8.5px;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1.2;
+}
+
+.dark-mode .b-match-num {
+  background: rgba(255, 94, 0, 0.15);
+  border: 1px solid rgba(255, 94, 0, 0.35);
+  color: #ff9d54;
+  box-shadow: 0 0 6px rgba(255, 94, 0, 0.2);
+}
+
+.light-mode .b-match-num {
+  background: rgba(2, 132, 199, 0.1);
+  border: 1px solid rgba(2, 132, 199, 0.3);
+  color: #0284c7;
+}
+
+.b-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1.5px 6px;
+  border-radius: 999px;
+  background: rgba(34, 197, 94, 0.2);
+  border: 1px solid #22c55e;
+  color: #22c55e;
+  font-weight: 800;
+  font-size: 8.5px;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.35);
+}
+
+.b-finished-badge {
+  padding: 1.5px 6px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.16);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  color: #cbd5e1;
+  font-weight: 700;
+  font-size: 8px;
+}
+
+.b-pending-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1.5px 6px;
+  border-radius: 999px;
+  font-size: 8.5px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.dark-mode .b-pending-badge {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #cbd5e1;
+}
+
+.light-mode .b-pending-badge {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+}
+
+/* Filas de Jugadores */
+.b-participant-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 6px;
+  border-radius: 7px;
+  margin: 1px 0;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.dark-mode .b-participant-row {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.dark-mode .b-participant-row:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.light-mode .b-participant-row {
+  background: #f8fafc;
+}
+
+.light-mode .b-participant-row:hover {
+  background: #f1f5f9;
+}
+
+.b-player-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+  flex: 1 1 auto;
+}
+
+.b-name-block {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.b-gamertag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.dark-mode .b-gamertag {
+  color: #f8fafc;
+}
+
+.light-mode .b-gamertag {
+  color: #0f172a;
+}
+
+.b-tbd {
+  font-weight: 400;
+  opacity: 0.45;
+  font-style: italic;
+  font-size: 9.5px;
+}
+
+.b-score-box {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+  margin-left: 6px;
+  padding: 1.5px 6px;
+  border-radius: 6px;
+}
+
+.dark-mode .b-score-box {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.light-mode .b-score-box {
+  background: #e2e8f0;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.b-score-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 900;
+  min-width: 12px;
+  text-align: right;
+  opacity: 0.9;
+}
+
+/* ILUMINACIÓN DEL GANADOR (Requisito fundamental) */
+.dark-mode .b-participant-row.is-winner {
+  background: linear-gradient(90deg, rgba(255, 94, 0, 0.35) 0%, rgba(251, 191, 36, 0.22) 100%);
+  border-left: 3px solid #fbbf24;
+  border-top-color: rgba(251, 191, 36, 0.2);
+  border-bottom-color: rgba(251, 191, 36, 0.2);
+  border-right-color: rgba(251, 191, 36, 0.2);
+  box-shadow: inset 0 0 10px rgba(251, 191, 36, 0.12);
+}
+
+.dark-mode .b-participant-row.is-winner .b-gamertag {
+  color: #ffffff;
+  text-shadow: 0 0 6px rgba(255, 94, 0, 0.6);
+}
+
+.dark-mode .b-participant-row.is-winner .b-winner-val {
+  color: #fbbf24;
+  text-shadow: 0 0 8px rgba(251, 191, 36, 0.8);
+}
+
+.light-mode .b-participant-row.is-winner {
+  background: linear-gradient(90deg, rgba(2, 132, 199, 0.18) 0%, rgba(224, 242, 254, 0.8) 100%);
+  border-left: 3px solid #0284c7;
+  border-top-color: rgba(2, 132, 199, 0.2);
+  border-bottom-color: rgba(2, 132, 199, 0.2);
+  border-right-color: rgba(2, 132, 199, 0.2);
+}
+
+.light-mode .b-participant-row.is-winner .b-gamertag {
+  color: #0369a1;
+}
+
+.light-mode .b-participant-row.is-winner .b-winner-val {
+  color: #0284c7;
+}
+
+.b-winner-trophy {
+  color: #fbbf24;
+}
+
+.b-participant-row.is-loser {
+  opacity: 0.4;
+}
+
+/* ==========================================================================
+   4. CENTRO: ESCENARIO DEL TROFEO Y GRAN FINAL (Imagen 1)
+   ========================================================================== */
+
+.bracket-center-trophy-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+  min-width: 150px;
+  max-width: 220px;
+  margin: 0 4px;
+  height: 94%;
+}
+
+.center-crest-glow-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.center-crest-halo {
+  position: absolute;
+  top: 6px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 94, 0, 0.45) 0%, rgba(251, 191, 36, 0.22) 50%, transparent 75%);
+  filter: blur(12px);
+  animation: haloBreathe 4s infinite ease-in-out;
+}
+
+@keyframes haloBreathe {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+.center-trophy-img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 4px 14px rgba(255, 94, 0, 0.65));
+}
+
+.center-trophy-titles {
+  margin-top: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.trophy-pill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  margin-bottom: 2px;
+}
+
+.dark-mode .trophy-pill-tag {
+  background: rgba(251, 191, 36, 0.16);
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  color: #fbbf24;
+}
+
+.light-mode .trophy-pill-tag {
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  color: #b45309;
+}
+
+.center-venue-text {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.center-time-text {
+  display: block;
+  font-size: 9px;
+  opacity: 0.7;
+  margin-top: 1px;
+}
+
+.center-final-card-box {
+  width: 100%;
+}
+
+.b-match-card.is-final {
+  border-width: 2px !important;
+}
+
+.dark-mode .b-match-card.is-final {
+  background: linear-gradient(180deg, rgba(38, 18, 55, 0.95) 0%, rgba(16, 8, 24, 0.95) 100%);
+  border-color: #fbbf24 !important;
+  box-shadow: 0 0 22px rgba(251, 191, 36, 0.35);
+}
+
+.light-mode .b-match-card.is-final {
+  background: #ffffff;
+  border-color: #ea580c !important;
+  box-shadow: 0 4px 0 #ea580c;
+}
+
+/* ==========================================================================
+   5. MODAL DE ESTADÍSTICAS DEL PARTIDO (Imagen 2)
+   ========================================================================== */
+
+.match-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  animation: overlayFadeIn 0.22s ease-out;
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.match-modal-card {
+  width: min(720px, 96vw);
+  max-height: 90vh;
+  border-radius: 18px;
+  border: 2px solid;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 94, 0, 0.25);
+  animation: modalScaleUp 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes modalScaleUp {
+  from {
+    transform: scale(0.94) translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.match-modal-header {
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.match-modal-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.match-modal-header-left strong {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.match-modal-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.match-modal-date-chip {
+  font-size: 10.5px;
+  font-weight: 700;
+  opacity: 0.9;
+  white-space: nowrap;
+}
+
+.match-modal-close-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.match-modal-close-btn:hover {
+  background: rgba(239, 68, 68, 0.8);
+  border-color: #ef4444;
+  transform: rotate(90deg);
+}
+
+/* MARCADOR PRINCIPAL (Imagen 2) */
+.match-modal-scoreboard {
+  padding: 18px 16px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: flex-start;
+  gap: 12px;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.08);
+}
+
+.team-scoreboard-side {
+  display: flex;
+  flex-direction: column;
+}
+
+.team-scoreboard-side.local {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.team-scoreboard-side.visitante {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.team-badge-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: inherit;
+  margin-bottom: 6px;
+}
+
+.winner-crown-chip {
+  display: inline-block;
+  margin-top: 3px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: rgba(251, 191, 36, 0.2);
+  border: 1px solid #fbbf24;
+  color: #fbbf24;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.team-meta-hero {
+  margin-bottom: 8px;
+}
+
+.player-gamertag-hero {
+  font-size: 15px;
+  font-weight: 900;
+  margin: 0;
+}
+
+.player-fullname-hero {
+  font-size: 10.5px;
+  opacity: 0.7;
+  display: block;
+  margin-top: 1px;
+}
+
+.scorers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+}
+
+.scorer-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10.5px;
+}
+
+.team-scoreboard-side.local .scorer-item {
+  justify-content: flex-end;
+}
+
+.team-scoreboard-side.visitante .scorer-item {
+  justify-content: flex-start;
+}
+
+.ball-icon {
+  font-size: 10px;
+}
+
+.minute-tag {
+  opacity: 0.75;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+}
+
+.no-scorers-hint {
+  font-size: 10px;
+  opacity: 0.4;
+  font-style: italic;
+}
+
+/* Dial Central del Marcador (Imagen 2: [ 5 ] [ 0 ]) */
+.scoreboard-center-dial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 6px;
+}
+
+.score-boxes-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.digit-score-box {
+  width: 52px;
+  height: 62px;
+  border-radius: 10px;
+  border: 2px solid;
+  display: grid;
+  place-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 32px;
+  font-weight: 900;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.digit-score-box.winner-box {
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.6);
+}
+
+.score-divider {
+  font-size: 24px;
+  font-weight: 800;
+  opacity: 0.5;
+}
+
+.live-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(34, 197, 94, 0.2);
+  border: 1.5px solid #22c55e;
+  color: #22c55e;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.finished-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.15);
+  color: #cbd5e1;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.pending-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 10px;
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+/* TABLA DE ESTADÍSTICAS (Imagen 2) */
+.match-modal-stats-section {
+  padding: 12px 16px;
+  overflow-y: auto;
+  max-height: 320px;
+}
+
+.official-stats-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.official-stats-table th {
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.th-team.local {
+  text-align: left;
+  width: 32%;
+}
+
+.th-title {
+  text-align: center;
+  width: 36%;
+  opacity: 0.8;
+}
+
+.th-team.visitante {
+  text-align: right;
+  width: 32%;
+}
+
+.official-stats-table td {
+  padding: 7px 10px;
+  font-size: 11.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.td-val.local {
+  text-align: left;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+}
+
+.td-val.visit {
+  text-align: right;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+}
+
+.td-stat-center {
+  text-align: center;
+}
+
+.stat-label-text {
+  font-weight: 700;
+  font-size: 11px;
+  display: block;
+}
+
+.stat-duel-bar-container {
+  display: flex;
+  height: 3.5px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+  margin-top: 4px;
+}
+
+.stat-bar-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.match-modal-footer {
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 10.5px;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.footer-source-note {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.footer-epdata {
+  opacity: 0.6;
+  font-size: 9.5px;
+}
+
+/* ==========================================================================
+   5. NAVEGADOR RÁPIDO DE RONDAS EN MÓVIL Y TABLET
+   ========================================================================== */
+
+.clf-mobile-nav-bar {
+  display: none;
+}
+
+/* ==========================================================================
+   6. RESPONSIVIDAD TOTAL: TABLETS, MÓVILES Y PANTALLAS COMPACTAS
+   ========================================================================== */
+
+@media (max-width: 1100px) {
+  .classification-screen {
+    height: 100vh;
+    max-height: 100vh;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    padding-top: 86px;
+    padding-bottom: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .clf-mobile-nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 2px 8px 8px 8px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    flex-shrink: 0;
+  }
+
+  .clf-mobile-nav-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .clf-round-tab {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #94a3b8;
+    padding: 4px 11px;
+    border-radius: 999px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .dark-mode .clf-round-tab:hover,
+  .dark-mode .clf-round-tab.active {
+    background: rgba(255, 94, 0, 0.22);
+    border-color: var(--neon-orange);
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(255, 94, 0, 0.35);
+  }
+
+  .light-mode .clf-round-tab {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #475569;
+  }
+
+  .light-mode .clf-round-tab:hover,
+  .light-mode .clf-round-tab.active {
+    background: rgba(2, 132, 199, 0.15);
+    border-color: #0284c7;
+    color: #0369a1;
+  }
+
+  .clf-round-tab.final-tab.active {
+    border-color: #fbbf24 !important;
+    color: #fbbf24 !important;
+    box-shadow: 0 0 14px rgba(251, 191, 36, 0.45) !important;
+  }
+
+  .clf-fit-board {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scroll-behavior: smooth;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 6px 16px 14px 16px;
+    width: 100%;
+    height: calc(100% - 40px);
+    box-sizing: border-box;
+  }
+
+  .clf-fit-board::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .dark-mode .clf-fit-board::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 999px;
+  }
+
+  .dark-mode .clf-fit-board::-webkit-scrollbar-thumb {
+    background: rgba(255, 94, 0, 0.45);
+    border-radius: 999px;
+  }
+
+  .light-mode .clf-fit-board::-webkit-scrollbar-thumb {
+    background: rgba(2, 132, 199, 0.45);
+    border-radius: 999px;
+  }
+
+  .bracket-col {
+    min-width: 170px;
+    max-width: 195px;
+    flex: 0 0 180px;
+    scroll-snap-align: center;
+    height: 98%;
+  }
+
+  .bracket-connector {
+    width: 26px;
+    flex: 0 0 26px;
+    height: 98%;
+  }
+
+  .bracket-center-trophy-stage {
+    min-width: 220px;
+    max-width: 250px;
+    flex: 0 0 230px;
+    scroll-snap-align: center;
+    height: 98%;
+  }
+}
+
+@media (max-width: 768px) {
+  .classification-screen {
+    padding-top: 92px;
+  }
+
+  .clf-fit-board {
+    padding: 4px 12px 12px 12px;
+    gap: 6px;
+  }
+
+  .bracket-col {
+    min-width: 160px;
+    max-width: 180px;
+    flex: 0 0 168px;
+  }
+
+  .bracket-center-trophy-stage {
+    min-width: 200px;
+    max-width: 225px;
+    flex: 0 0 210px;
+  }
+
+  .center-trophy-img {
+    width: 52px;
+    height: 52px;
+  }
+
+  .center-crest-halo {
+    width: 76px;
+    height: 76px;
+  }
+
+  .center-venue-text {
+    font-size: 11px;
+  }
+
+  .center-time-text {
+    font-size: 9.5px;
+  }
+}
+
+@media (max-width: 640px) {
+  .classification-screen {
+    padding-top: 96px;
+  }
+
+  .match-modal-card {
+    width: 96vw;
+    max-width: 96vw;
+    max-height: 92vh;
+    border-radius: 14px;
+  }
+
+  .match-modal-header {
+    padding: 10px 12px;
+  }
+
+  .match-modal-scoreboard {
+    padding: 12px 10px;
+    gap: 6px;
+  }
+
+  .digit-score-box {
+    width: 42px;
+    height: 48px;
+    font-size: 24px;
+    border-radius: 8px;
+  }
+
+  .player-gamertag-hero {
+    font-size: 12.5px;
+  }
+
+  .player-fullname-hero {
+    font-size: 9.5px;
+  }
+
+  .scorer-item {
+    font-size: 9.5px;
+  }
+
+  .match-modal-stats-section {
+    padding: 8px 10px;
+    max-height: 240px;
+  }
+
+  .official-stats-table th {
+    padding: 5px 6px;
+    font-size: 9.5px;
+  }
+
+  .official-stats-table td {
+    padding: 5px 6px;
+    font-size: 10px;
+  }
+
+  .td-val.local,
+  .td-val.visit {
+    font-size: 11.5px;
+  }
+}
+
+/* Botón de árbitro para simular el partido desde la tarjeta */
+.b-arbitrar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: calc(100% - 16px);
+  margin: 2px 8px 9px;
+  height: 30px;
+  border: 1px solid rgba(255, 94, 0, 0.55);
+  border-radius: 9px;
+  background: linear-gradient(135deg, rgba(255, 94, 0, 0.9), rgba(147, 51, 234, 0.9));
+  color: #fff;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.b-arbitrar-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px -8px rgba(255, 94, 0, 0.9);
+}
+
+.b-arbitrar-btn:active {
+  transform: translateY(0);
+}
+
+.light-mode .b-arbitrar-btn {
+  color: #fff;
+  box-shadow: 0 6px 14px -8px rgba(255, 94, 0, 0.7);
+}
